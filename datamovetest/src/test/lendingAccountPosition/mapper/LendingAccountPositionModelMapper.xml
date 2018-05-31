@@ -1,0 +1,402 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.huatai.cube.server.ts.modules.lendingAccountPosition.dao.LendingAccountPositionModelMapper" >
+  <resultMap id="BaseResultMap" type="com.huatai.cube.server.ts.modules.lendingAccountPosition.model.LendingAccountPositionModel" >
+    <id column="ID" property="id" jdbcType="INTEGER" />
+    <result column="ProductAccount" property="productaccount" jdbcType="VARCHAR" />
+    <result column="AssetAccount" property="assetaccount" jdbcType="VARCHAR" />
+    <result column="TradingAccount" property="tradingaccount" jdbcType="VARCHAR" />
+    <result column="SecurityAccount" property="securityaccount" jdbcType="VARCHAR" />
+    <result column="ExecBroker" property="execbroker" jdbcType="VARCHAR" />
+    <result column="SecurityExchange" property="securityexchange" jdbcType="VARCHAR" />
+    <result column="Underlying" property="underlying" jdbcType="VARCHAR" />
+    <result column="UnderlyingName" property="underlyingname" jdbcType="VARCHAR" />
+    <result column="Position" property="position" jdbcType="INTEGER" />
+    <result column="LastUpdateTime" property="lastupdatetime" jdbcType="TIMESTAMP" />
+    <result column="LastUpdateUser" property="lastupdateuser" jdbcType="VARCHAR" />
+    <result column="ShortAmount" property="shortamount" jdbcType="INTEGER" />
+    <result column="Date" property="date" jdbcType="DATE" />
+    <result column="TodayBoughtAmount" property="todayboughtamount" jdbcType="INTEGER" />
+    <result column="TodayShortedAmount" property="todayshortedamount" jdbcType="INTEGER" />
+    <result column="IsVaid" property="isvaid" jdbcType="BIT" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    ID, ProductAccount, AssetAccount, TradingAccount, SecurityAccount, ExecBroker, SecurityExchange, 
+    Underlying, UnderlyingName, Position, LastUpdateTime, LastUpdateUser, ShortAmount, 
+    Date, TodayBoughtAmount, TodayShortedAmount, IsVaid
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.huatai.cube.server.ts.modules.lendingAccountPosition.model.LendingAccountPositionModelExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'false' as QUERYID,
+    <include refid="Base_Column_List" />
+    from lendingaccountposition
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from lendingaccountposition
+    where ID = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from lendingaccountposition
+    where ID = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.huatai.cube.server.ts.modules.lendingAccountPosition.model.LendingAccountPositionModelExample" >
+    delete from lendingaccountposition
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.huatai.cube.server.ts.modules.lendingAccountPosition.model.LendingAccountPositionModel" >
+    insert into lendingaccountposition (ID, ProductAccount, AssetAccount, 
+      TradingAccount, SecurityAccount, ExecBroker, 
+      SecurityExchange, Underlying, UnderlyingName, 
+      Position, LastUpdateTime, LastUpdateUser, 
+      ShortAmount, Date, TodayBoughtAmount, 
+      TodayShortedAmount, IsVaid)
+    values (#{id,jdbcType=INTEGER}, #{productaccount,jdbcType=VARCHAR}, #{assetaccount,jdbcType=VARCHAR}, 
+      #{tradingaccount,jdbcType=VARCHAR}, #{securityaccount,jdbcType=VARCHAR}, #{execbroker,jdbcType=VARCHAR}, 
+      #{securityexchange,jdbcType=VARCHAR}, #{underlying,jdbcType=VARCHAR}, #{underlyingname,jdbcType=VARCHAR}, 
+      #{position,jdbcType=INTEGER}, #{lastupdatetime,jdbcType=TIMESTAMP}, #{lastupdateuser,jdbcType=VARCHAR}, 
+      #{shortamount,jdbcType=INTEGER}, #{date,jdbcType=DATE}, #{todayboughtamount,jdbcType=INTEGER}, 
+      #{todayshortedamount,jdbcType=INTEGER}, #{isvaid,jdbcType=BIT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.huatai.cube.server.ts.modules.lendingAccountPosition.model.LendingAccountPositionModel" >
+    insert into lendingaccountposition
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="productaccount != null" >
+        ProductAccount,
+      </if>
+      <if test="assetaccount != null" >
+        AssetAccount,
+      </if>
+      <if test="tradingaccount != null" >
+        TradingAccount,
+      </if>
+      <if test="securityaccount != null" >
+        SecurityAccount,
+      </if>
+      <if test="execbroker != null" >
+        ExecBroker,
+      </if>
+      <if test="securityexchange != null" >
+        SecurityExchange,
+      </if>
+      <if test="underlying != null" >
+        Underlying,
+      </if>
+      <if test="underlyingname != null" >
+        UnderlyingName,
+      </if>
+      <if test="position != null" >
+        Position,
+      </if>
+      <if test="lastupdatetime != null" >
+        LastUpdateTime,
+      </if>
+      <if test="lastupdateuser != null" >
+        LastUpdateUser,
+      </if>
+      <if test="shortamount != null" >
+        ShortAmount,
+      </if>
+      <if test="date != null" >
+        Date,
+      </if>
+      <if test="todayboughtamount != null" >
+        TodayBoughtAmount,
+      </if>
+      <if test="todayshortedamount != null" >
+        TodayShortedAmount,
+      </if>
+      <if test="isvaid != null" >
+        IsVaid,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="productaccount != null" >
+        #{productaccount,jdbcType=VARCHAR},
+      </if>
+      <if test="assetaccount != null" >
+        #{assetaccount,jdbcType=VARCHAR},
+      </if>
+      <if test="tradingaccount != null" >
+        #{tradingaccount,jdbcType=VARCHAR},
+      </if>
+      <if test="securityaccount != null" >
+        #{securityaccount,jdbcType=VARCHAR},
+      </if>
+      <if test="execbroker != null" >
+        #{execbroker,jdbcType=VARCHAR},
+      </if>
+      <if test="securityexchange != null" >
+        #{securityexchange,jdbcType=VARCHAR},
+      </if>
+      <if test="underlying != null" >
+        #{underlying,jdbcType=VARCHAR},
+      </if>
+      <if test="underlyingname != null" >
+        #{underlyingname,jdbcType=VARCHAR},
+      </if>
+      <if test="position != null" >
+        #{position,jdbcType=INTEGER},
+      </if>
+      <if test="lastupdatetime != null" >
+        #{lastupdatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastupdateuser != null" >
+        #{lastupdateuser,jdbcType=VARCHAR},
+      </if>
+      <if test="shortamount != null" >
+        #{shortamount,jdbcType=INTEGER},
+      </if>
+      <if test="date != null" >
+        #{date,jdbcType=DATE},
+      </if>
+      <if test="todayboughtamount != null" >
+        #{todayboughtamount,jdbcType=INTEGER},
+      </if>
+      <if test="todayshortedamount != null" >
+        #{todayshortedamount,jdbcType=INTEGER},
+      </if>
+      <if test="isvaid != null" >
+        #{isvaid,jdbcType=BIT},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.huatai.cube.server.ts.modules.lendingAccountPosition.model.LendingAccountPositionModelExample" resultType="java.lang.Integer" >
+    select count(*) from lendingaccountposition
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update lendingaccountposition
+    <set >
+      <if test="record.id != null" >
+        ID = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.productaccount != null" >
+        ProductAccount = #{record.productaccount,jdbcType=VARCHAR},
+      </if>
+      <if test="record.assetaccount != null" >
+        AssetAccount = #{record.assetaccount,jdbcType=VARCHAR},
+      </if>
+      <if test="record.tradingaccount != null" >
+        TradingAccount = #{record.tradingaccount,jdbcType=VARCHAR},
+      </if>
+      <if test="record.securityaccount != null" >
+        SecurityAccount = #{record.securityaccount,jdbcType=VARCHAR},
+      </if>
+      <if test="record.execbroker != null" >
+        ExecBroker = #{record.execbroker,jdbcType=VARCHAR},
+      </if>
+      <if test="record.securityexchange != null" >
+        SecurityExchange = #{record.securityexchange,jdbcType=VARCHAR},
+      </if>
+      <if test="record.underlying != null" >
+        Underlying = #{record.underlying,jdbcType=VARCHAR},
+      </if>
+      <if test="record.underlyingname != null" >
+        UnderlyingName = #{record.underlyingname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.position != null" >
+        Position = #{record.position,jdbcType=INTEGER},
+      </if>
+      <if test="record.lastupdatetime != null" >
+        LastUpdateTime = #{record.lastupdatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.lastupdateuser != null" >
+        LastUpdateUser = #{record.lastupdateuser,jdbcType=VARCHAR},
+      </if>
+      <if test="record.shortamount != null" >
+        ShortAmount = #{record.shortamount,jdbcType=INTEGER},
+      </if>
+      <if test="record.date != null" >
+        Date = #{record.date,jdbcType=DATE},
+      </if>
+      <if test="record.todayboughtamount != null" >
+        TodayBoughtAmount = #{record.todayboughtamount,jdbcType=INTEGER},
+      </if>
+      <if test="record.todayshortedamount != null" >
+        TodayShortedAmount = #{record.todayshortedamount,jdbcType=INTEGER},
+      </if>
+      <if test="record.isvaid != null" >
+        IsVaid = #{record.isvaid,jdbcType=BIT},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update lendingaccountposition
+    set ID = #{record.id,jdbcType=INTEGER},
+      ProductAccount = #{record.productaccount,jdbcType=VARCHAR},
+      AssetAccount = #{record.assetaccount,jdbcType=VARCHAR},
+      TradingAccount = #{record.tradingaccount,jdbcType=VARCHAR},
+      SecurityAccount = #{record.securityaccount,jdbcType=VARCHAR},
+      ExecBroker = #{record.execbroker,jdbcType=VARCHAR},
+      SecurityExchange = #{record.securityexchange,jdbcType=VARCHAR},
+      Underlying = #{record.underlying,jdbcType=VARCHAR},
+      UnderlyingName = #{record.underlyingname,jdbcType=VARCHAR},
+      Position = #{record.position,jdbcType=INTEGER},
+      LastUpdateTime = #{record.lastupdatetime,jdbcType=TIMESTAMP},
+      LastUpdateUser = #{record.lastupdateuser,jdbcType=VARCHAR},
+      ShortAmount = #{record.shortamount,jdbcType=INTEGER},
+      Date = #{record.date,jdbcType=DATE},
+      TodayBoughtAmount = #{record.todayboughtamount,jdbcType=INTEGER},
+      TodayShortedAmount = #{record.todayshortedamount,jdbcType=INTEGER},
+      IsVaid = #{record.isvaid,jdbcType=BIT}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.huatai.cube.server.ts.modules.lendingAccountPosition.model.LendingAccountPositionModel" >
+    update lendingaccountposition
+    <set >
+      <if test="productaccount != null" >
+        ProductAccount = #{productaccount,jdbcType=VARCHAR},
+      </if>
+      <if test="assetaccount != null" >
+        AssetAccount = #{assetaccount,jdbcType=VARCHAR},
+      </if>
+      <if test="tradingaccount != null" >
+        TradingAccount = #{tradingaccount,jdbcType=VARCHAR},
+      </if>
+      <if test="securityaccount != null" >
+        SecurityAccount = #{securityaccount,jdbcType=VARCHAR},
+      </if>
+      <if test="execbroker != null" >
+        ExecBroker = #{execbroker,jdbcType=VARCHAR},
+      </if>
+      <if test="securityexchange != null" >
+        SecurityExchange = #{securityexchange,jdbcType=VARCHAR},
+      </if>
+      <if test="underlying != null" >
+        Underlying = #{underlying,jdbcType=VARCHAR},
+      </if>
+      <if test="underlyingname != null" >
+        UnderlyingName = #{underlyingname,jdbcType=VARCHAR},
+      </if>
+      <if test="position != null" >
+        Position = #{position,jdbcType=INTEGER},
+      </if>
+      <if test="lastupdatetime != null" >
+        LastUpdateTime = #{lastupdatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastupdateuser != null" >
+        LastUpdateUser = #{lastupdateuser,jdbcType=VARCHAR},
+      </if>
+      <if test="shortamount != null" >
+        ShortAmount = #{shortamount,jdbcType=INTEGER},
+      </if>
+      <if test="date != null" >
+        Date = #{date,jdbcType=DATE},
+      </if>
+      <if test="todayboughtamount != null" >
+        TodayBoughtAmount = #{todayboughtamount,jdbcType=INTEGER},
+      </if>
+      <if test="todayshortedamount != null" >
+        TodayShortedAmount = #{todayshortedamount,jdbcType=INTEGER},
+      </if>
+      <if test="isvaid != null" >
+        IsVaid = #{isvaid,jdbcType=BIT},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.huatai.cube.server.ts.modules.lendingAccountPosition.model.LendingAccountPositionModel" >
+    update lendingaccountposition
+    set ProductAccount = #{productaccount,jdbcType=VARCHAR},
+      AssetAccount = #{assetaccount,jdbcType=VARCHAR},
+      TradingAccount = #{tradingaccount,jdbcType=VARCHAR},
+      SecurityAccount = #{securityaccount,jdbcType=VARCHAR},
+      ExecBroker = #{execbroker,jdbcType=VARCHAR},
+      SecurityExchange = #{securityexchange,jdbcType=VARCHAR},
+      Underlying = #{underlying,jdbcType=VARCHAR},
+      UnderlyingName = #{underlyingname,jdbcType=VARCHAR},
+      Position = #{position,jdbcType=INTEGER},
+      LastUpdateTime = #{lastupdatetime,jdbcType=TIMESTAMP},
+      LastUpdateUser = #{lastupdateuser,jdbcType=VARCHAR},
+      ShortAmount = #{shortamount,jdbcType=INTEGER},
+      Date = #{date,jdbcType=DATE},
+      TodayBoughtAmount = #{todayboughtamount,jdbcType=INTEGER},
+      TodayShortedAmount = #{todayshortedamount,jdbcType=INTEGER},
+      IsVaid = #{isvaid,jdbcType=BIT}
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

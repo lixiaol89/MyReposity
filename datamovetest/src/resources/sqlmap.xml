@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+     <environments default="development">
+         <environment id="qa">
+             <transactionManager type="JDBC" />
+             <!-- 配置数据库连接信息 -->
+            <dataSource type="POOLED">
+                 <property name="driver" value="com.mysql.jdbc.Driver" />
+                <property name="url" value="jdbc:mysql://168.61.2.10:3310/ktp" />
+               <property name="username" value="ktp" />
+                <property name="password" value="ktp123" />
+             </dataSource>
+         </environment>
+         <environment id="development">
+             <transactionManager type="JDBC" />
+             <!-- 配置数据库连接信息 -->
+            <dataSource type="POOLED">
+                 <property name="driver" value="com.mysql.jdbc.Driver" />
+                <property name="url" value="jdbc:mysql://168.61.2.10:3306/ktp" />
+               <property name="username" value="ktp" />
+                <property name="password" value="ktp9527" />
+             </dataSource>
+         </environment>
+     </environments>
+     
+     <mappers>
+     <mapper resource="com/modules/datamovetest/mapper/DatamovetestModelMapper.xml"/>
+     
+     
+     <mapper resource="com/modules/barrieroptbkinfo/mapper/BarrieroptbkinfoModelMapper.xml"/>
+     <mapper resource="com/modules/bkunderlyinginfo/mapper/BkunderlyinginfoModelMapper.xml"/>
+     <mapper resource="com/modules/bondbkinfo/mapper/BondbkinfoModelMapper.xml"/>
+     <mapper resource="com/modules/bookingbasicinfo/mapper/BookingbasicinfoModelMapper.xml"/>
+     <mapper resource="com/modules/calendar/mapper/CalendarModelMapper.xml"/>
+     <mapper resource="com/modules/cashflow/mapper/CashflowModelMapper.xml"/>
+     <mapper resource="com/modules/client/mapper/ClientModelMapper.xml"/>
+     <mapper resource="com/modules/codecatalog/mapper/codecatalogModelMapper.xml"/>
+     <mapper resource="com/modules/codelibrary/mapper/CodelibraryModelMapper.xml"/>
+     <mapper resource="com/modules/corpaction/mapper/CorpactionModelMapper.xml"/>
+     <mapper resource="com/modules/correlation/mapper/CorrelationModelMapper.xml"/>
+     <mapper resource="com/modules/dividend/mapper/DividendModelMapper.xml"/>
+     <mapper resource="com/modules/eqswpbkinfo/mapper/EqswpbkinfoModelMapper.xml"/>
+     <mapper resource="com/modules/hisprice/mapper/HispriceModelMapper.xml"/>
+     <mapper resource="com/modules/interestrate/mapper/InterestrateModelMapper.xml"/>
+     <mapper resource="com/modules/liveprice/mapper/LivepriceModelMapper.xml"/>
+     <mapper resource="com/modules/margin/mapper/MarginModelMapper.xml"/>
+     <mapper resource="com/modules/marktomkt/mapper/MarktomktModelMapper.xml"/>
+     <mapper resource="com/modules/nonlinearswapinfo/mapper/NonlinearswapinfoModelMapper.xml"/>
+     <mapper resource="com/modules/optionportfolio/mapper/OptionportfolioModelMapper.xml"/>
+     <mapper resource="com/modules/parameter/mapper/ParameterModelMapper.xml"/>
+     <mapper resource="com/modules/repo/mapper/RepoModelMapper.xml"/>
+     <mapper resource="com/modules/tradingflowinfo/mapper/TradingflowinfoModelMapper.xml"/>
+     <mapper resource="com/modules/underlying/mapper/UnderlyingModelMapper.xml"/>
+     <mapper resource="com/modules/volatility/mapper/VolatilityModelMapper.xml"/>
+     
+     
+     </mappers>
+     
+</configuration>

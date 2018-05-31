@@ -1,0 +1,391 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.huatai.cube.server.ts.modules.securitypool.dao.SecurityPoolModelMapper" >
+  <resultMap id="BaseResultMap" type="com.huatai.cube.server.ts.modules.securitypool.model.SecurityPoolModel" >
+    <id column="ID" property="id" jdbcType="INTEGER" />
+    <result column="SecurityExchange" property="securityexchange" jdbcType="VARCHAR" />
+    <result column="Underlying" property="underlying" jdbcType="VARCHAR" />
+    <result column="UnderlyingName" property="underlyingname" jdbcType="VARCHAR" />
+    <result column="LendAbleAmount" property="lendableamount" jdbcType="INTEGER" />
+    <result column="LockedAmount" property="lockedamount" jdbcType="INTEGER" />
+    <result column="LeftAmount" property="leftamount" jdbcType="INTEGER" />
+    <result column="InterestRate" property="interestrate" jdbcType="DECIMAL" />
+    <result column="LastUpdateUser" property="lastupdateuser" jdbcType="VARCHAR" />
+    <result column="LastUpdateTime" property="lastupdatetime" jdbcType="TIMESTAMP" />
+    <result column="ShortAbleAmount" property="shortableamount" jdbcType="INTEGER" />
+    <result column="Date" property="date" jdbcType="DATE" />
+    <result column="CustomerType" property="customertype" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    ID, SecurityExchange, Underlying, UnderlyingName, LendAbleAmount, LockedAmount, LeftAmount, 
+    InterestRate, LastUpdateUser, LastUpdateTime, ShortAbleAmount, Date, CustomerType
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.huatai.cube.server.ts.modules.securitypool.model.SecurityPoolModelExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'false' as QUERYID,
+    <include refid="Base_Column_List" />
+    from securitypool
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from securitypool
+    where ID = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from securitypool
+    where ID = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.huatai.cube.server.ts.modules.securitypool.model.SecurityPoolModelExample" >
+    delete from securitypool
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.huatai.cube.server.ts.modules.securitypool.model.SecurityPoolModel" >
+    insert into securitypool (ID, SecurityExchange, Underlying, 
+      UnderlyingName, LendAbleAmount, LockedAmount, 
+      LeftAmount, InterestRate, LastUpdateUser, 
+      LastUpdateTime, ShortAbleAmount, Date, 
+      CustomerType)
+    values (#{id,jdbcType=INTEGER}, #{securityexchange,jdbcType=VARCHAR}, #{underlying,jdbcType=VARCHAR}, 
+      #{underlyingname,jdbcType=VARCHAR}, #{lendableamount,jdbcType=INTEGER}, #{lockedamount,jdbcType=INTEGER}, 
+      #{leftamount,jdbcType=INTEGER}, #{interestrate,jdbcType=DECIMAL}, #{lastupdateuser,jdbcType=VARCHAR}, 
+      #{lastupdatetime,jdbcType=TIMESTAMP}, #{shortableamount,jdbcType=INTEGER}, #{date,jdbcType=DATE}, 
+      #{customertype,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.huatai.cube.server.ts.modules.securitypool.model.SecurityPoolModel" >
+    insert into securitypool
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="securityexchange != null" >
+        SecurityExchange,
+      </if>
+      <if test="underlying != null" >
+        Underlying,
+      </if>
+      <if test="underlyingname != null" >
+        UnderlyingName,
+      </if>
+      <if test="lendableamount != null" >
+        LendAbleAmount,
+      </if>
+      <if test="lockedamount != null" >
+        LockedAmount,
+      </if>
+      <if test="leftamount != null" >
+        LeftAmount,
+      </if>
+      <if test="interestrate != null" >
+        InterestRate,
+      </if>
+      <if test="lastupdateuser != null" >
+        LastUpdateUser,
+      </if>
+      <if test="lastupdatetime != null" >
+        LastUpdateTime,
+      </if>
+      <if test="shortableamount != null" >
+        ShortAbleAmount,
+      </if>
+      <if test="date != null" >
+        Date,
+      </if>
+      <if test="customertype != null" >
+        CustomerType,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="securityexchange != null" >
+        #{securityexchange,jdbcType=VARCHAR},
+      </if>
+      <if test="underlying != null" >
+        #{underlying,jdbcType=VARCHAR},
+      </if>
+      <if test="underlyingname != null" >
+        #{underlyingname,jdbcType=VARCHAR},
+      </if>
+      <if test="lendableamount != null" >
+        #{lendableamount,jdbcType=INTEGER},
+      </if>
+      <if test="lockedamount != null" >
+        #{lockedamount,jdbcType=INTEGER},
+      </if>
+      <if test="leftamount != null" >
+        #{leftamount,jdbcType=INTEGER},
+      </if>
+      <if test="interestrate != null" >
+        #{interestrate,jdbcType=DECIMAL},
+      </if>
+      <if test="lastupdateuser != null" >
+        #{lastupdateuser,jdbcType=VARCHAR},
+      </if>
+      <if test="lastupdatetime != null" >
+        #{lastupdatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="shortableamount != null" >
+        #{shortableamount,jdbcType=INTEGER},
+      </if>
+      <if test="date != null" >
+        #{date,jdbcType=DATE},
+      </if>
+      <if test="customertype != null" >
+        #{customertype,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.huatai.cube.server.ts.modules.securitypool.model.SecurityPoolModelExample" resultType="java.lang.Integer" >
+    select count(*) from securitypool
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update securitypool
+    <set >
+      <if test="record.id != null" >
+        ID = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.securityexchange != null" >
+        SecurityExchange = #{record.securityexchange,jdbcType=VARCHAR},
+      </if>
+      <if test="record.underlying != null" >
+        Underlying = #{record.underlying,jdbcType=VARCHAR},
+      </if>
+      <if test="record.underlyingname != null" >
+        UnderlyingName = #{record.underlyingname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.lendableamount != null" >
+        LendAbleAmount = #{record.lendableamount,jdbcType=INTEGER},
+      </if>
+      <if test="record.lockedamount != null" >
+        LockedAmount = #{record.lockedamount,jdbcType=INTEGER},
+      </if>
+      <if test="record.leftamount != null" >
+        LeftAmount = #{record.leftamount,jdbcType=INTEGER},
+      </if>
+      <if test="record.interestrate != null" >
+        InterestRate = #{record.interestrate,jdbcType=DECIMAL},
+      </if>
+      <if test="record.lastupdateuser != null" >
+        LastUpdateUser = #{record.lastupdateuser,jdbcType=VARCHAR},
+      </if>
+      <if test="record.lastupdatetime != null" >
+        LastUpdateTime = #{record.lastupdatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.shortableamount != null" >
+        ShortAbleAmount = #{record.shortableamount,jdbcType=INTEGER},
+      </if>
+      <if test="record.date != null" >
+        Date = #{record.date,jdbcType=DATE},
+      </if>
+      <if test="record.customertype != null" >
+        CustomerType = #{record.customertype,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update securitypool
+    set ID = #{record.id,jdbcType=INTEGER},
+      SecurityExchange = #{record.securityexchange,jdbcType=VARCHAR},
+      Underlying = #{record.underlying,jdbcType=VARCHAR},
+      UnderlyingName = #{record.underlyingname,jdbcType=VARCHAR},
+      LendAbleAmount = #{record.lendableamount,jdbcType=INTEGER},
+      LockedAmount = #{record.lockedamount,jdbcType=INTEGER},
+      LeftAmount = #{record.leftamount,jdbcType=INTEGER},
+      InterestRate = #{record.interestrate,jdbcType=DECIMAL},
+      LastUpdateUser = #{record.lastupdateuser,jdbcType=VARCHAR},
+      LastUpdateTime = #{record.lastupdatetime,jdbcType=TIMESTAMP},
+      ShortAbleAmount = #{record.shortableamount,jdbcType=INTEGER},
+      Date = #{record.date,jdbcType=DATE},
+      CustomerType = #{record.customertype,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.huatai.cube.server.ts.modules.securitypool.model.SecurityPoolModel" >
+    update securitypool
+    <set >
+      <if test="securityexchange != null" >
+        SecurityExchange = #{securityexchange,jdbcType=VARCHAR},
+      </if>
+      <if test="underlying != null" >
+        Underlying = #{underlying,jdbcType=VARCHAR},
+      </if>
+      <if test="underlyingname != null" >
+        UnderlyingName = #{underlyingname,jdbcType=VARCHAR},
+      </if>
+      <if test="lendableamount != null" >
+        LendAbleAmount = #{lendableamount,jdbcType=INTEGER},
+      </if>
+      <if test="lockedamount != null" >
+        LockedAmount = #{lockedamount,jdbcType=INTEGER},
+      </if>
+      <if test="leftamount != null" >
+        LeftAmount = #{leftamount,jdbcType=INTEGER},
+      </if>
+      <if test="interestrate != null" >
+        InterestRate = #{interestrate,jdbcType=DECIMAL},
+      </if>
+      <if test="lastupdateuser != null" >
+        LastUpdateUser = #{lastupdateuser,jdbcType=VARCHAR},
+      </if>
+      <if test="lastupdatetime != null" >
+        LastUpdateTime = #{lastupdatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="shortableamount != null" >
+        ShortAbleAmount = #{shortableamount,jdbcType=INTEGER},
+      </if>
+      <if test="date != null" >
+        Date = #{date,jdbcType=DATE},
+      </if>
+      <if test="customertype != null" >
+        CustomerType = #{customertype,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.huatai.cube.server.ts.modules.securitypool.model.SecurityPoolModel" >
+    update securitypool
+    set SecurityExchange = #{securityexchange,jdbcType=VARCHAR},
+      Underlying = #{underlying,jdbcType=VARCHAR},
+      UnderlyingName = #{underlyingname,jdbcType=VARCHAR},
+      LendAbleAmount = #{lendableamount,jdbcType=INTEGER},
+      LockedAmount = #{lockedamount,jdbcType=INTEGER},
+      LeftAmount = #{leftamount,jdbcType=INTEGER},
+      InterestRate = #{interestrate,jdbcType=DECIMAL},
+      LastUpdateUser = #{lastupdateuser,jdbcType=VARCHAR},
+      LastUpdateTime = #{lastupdatetime,jdbcType=TIMESTAMP},
+      ShortAbleAmount = #{shortableamount,jdbcType=INTEGER},
+      Date = #{date,jdbcType=DATE},
+      CustomerType = #{customertype,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+	<update id="updateByUnderlyingSelective"
+		parameterType="com.huatai.cube.server.ts.modules.securitypool.model.SecurityPoolModel">
+		update securitypool
+		<set>
+			<if test="securityexchange != null">
+				SecurityExchange = #{securityexchange,jdbcType=VARCHAR},
+			</if>
+			<if test="underlyingname != null">
+				UnderlyingName = #{underlyingname,jdbcType=VARCHAR},
+			</if>
+			<if test="totalamount != null">
+				TotalAmount = #{totalamount,jdbcType=INTEGER},
+			</if>
+			<if test="position != null">
+				Position = #{position,jdbcType=INTEGER},
+			</if>
+			<if test="lentamount != null">
+				LentAmount = #{lentamount,jdbcType=INTEGER},
+			</if>
+			<if test="lendableamount != null">
+				LendAbleAmount = #{lendableamount,jdbcType=INTEGER},
+			</if>
+			<if test="lockedamount != null">
+				LockedAmount = #{lockedamount,jdbcType=INTEGER},
+			</if>
+			<if test="leftamount != null">
+				LeftAmount = #{leftamount,jdbcType=INTEGER},
+			</if>
+			<if test="interestrate != null">
+				InterestRate = #{interestrate,jdbcType=DECIMAL},
+			</if>
+			<if test="lastupdateuser != null">
+				LastUpdateUser = #{lastupdateuser,jdbcType=VARCHAR},
+			</if>
+			<if test="lastupdatetime != null">
+				LastUpdateTime = #{lastupdatetime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="shortableamount != null">
+				ShortAbleAmount = #{shortableamount,jdbcType=INTEGER},
+			</if>
+			<if test="shortamount != null">
+				ShortAmount = #{shortamount,jdbcType=INTEGER},
+			</if>
+			<if test="shortedamount != null">
+				ShortedAmount = #{shortedamount,jdbcType=INTEGER},
+			</if>
+		</set>
+		where Underlying = #{underlying,jdbcType=VARCHAR} and Date = #{date,jdbcType=DATE}
+	</update>
+	<select id="selectAllMaxDate" resultMap="BaseResultMap">		
+		SELECT max(date) as Date FROM securitypool 
+	</select>
+</mapper>

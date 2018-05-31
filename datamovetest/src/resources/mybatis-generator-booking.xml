@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+		PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+		"http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+<generatorConfiguration>
+	<!-- 引入配置文件 -->
+	<properties resource="application.properties"/>
+
+	<context id="KTPDATA"	targetRuntime="MyBatis3">
+		<commentGenerator>
+			<property name="suppressDate" value="true"/>
+			<property name="suppressAllComments" value="true"/>
+		</commentGenerator>
+
+		<!--数据库链接地址账号密码-->
+		<jdbcConnection driverClass="com.mysql.jdbc.Driver" connectionURL="jdbc:mysql://168.61.2.10:3310/ktp?characterEncoding=UTF-8" userId="ktp" password="ktp123"></jdbcConnection>
+
+		<!-- 是否使用bigDecimal， false可自动转化以下类型（Long, Integer, Short, etc.） -->
+		<javaTypeResolver>
+			<property name="forceBigDecimals" value="false"/>
+		</javaTypeResolver>
+
+		<!--生成Model类存放位置-->
+		<javaModelGenerator targetPackage="com.huatai.cube.rms.modules.bookingmgt.model" targetProject="src/main/java">
+			<property name="enableSubPackages" value="true"/>
+			<property name="trimStrings" value="true"/>
+		</javaModelGenerator>
+
+		<!--生成映射文件存放位置-->
+		<sqlMapGenerator targetPackage="com.huatai.cube.rms.modules.bookingmgt.mapper" targetProject="src/main/java">
+			<property name="enableSubPackages" value="true"/>
+		</sqlMapGenerator>
+		<!--生成Dao类存放位置-->
+		<!-- 客户端代码，生成易于使用的针对Model对象和XML配置文件 的代码
+				type="ANNOTATEDMAPPER",生成Java Model 和基于注解的Mapper对象
+				type="MIXEDMAPPER",生成基于注解的Java Model 和相应的Mapper对象
+				type="XMLMAPPER",生成SQLMap XML文件和独立的Mapper接口-->
+		<javaClientGenerator type="XMLMAPPER" targetPackage="com.huatai.cube.rms.modules.bookingmgt.dao" targetProject="src/main/java">
+			<property name="enableSubPackages" value="true"/>
+		</javaClientGenerator>
+
+		<!--交易信息-->
+		<table tableName="BarrierOptBkInfo" domainObjectName="BarrierOptBkInfoModel" enableCountByExample="true" enableUpdateByExample="true" enableDeleteByExample="true" enableSelectByExample="true" selectByExampleQueryId="false"></table>
+		<table tableName="BkUnderlyingInfo" domainObjectName="BkUnderlyingInfoModel" enableCountByExample="true" enableUpdateByExample="true" enableDeleteByExample="true" enableSelectByExample="true" selectByExampleQueryId="false"></table>
+		<table tableName="BookingBasicInfo" domainObjectName="BookingBasicInfoModel" enableCountByExample="true" enableUpdateByExample="true" enableDeleteByExample="true" enableSelectByExample="true" selectByExampleQueryId="false"></table>
+		<table tableName="EqSwpBkInfo" domainObjectName="EqSwpBkInfoModel" enableCountByExample="true" enableUpdateByExample="true" enableDeleteByExample="true" enableSelectByExample="true" selectByExampleQueryId="false"></table>
+		<table tableName="NonLinearSwapInfo" domainObjectName="NonLinearSwapInfoModel" enableCountByExample="true" enableUpdateByExample="true" enableDeleteByExample="true" enableSelectByExample="true" selectByExampleQueryId="false"></table>
+		<table tableName="OptionPortfolio" domainObjectName="OptionPortfolioModel" enableCountByExample="true" enableUpdateByExample="true" enableDeleteByExample="true" enableSelectByExample="true" selectByExampleQueryId="false"></table>
+	</context>
+</generatorConfiguration>

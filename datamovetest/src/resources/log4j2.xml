@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="WARN">
+	<properties>
+		<property name="LOG_PATH" value="logs" />
+	</properties>
+	<Appenders>
+		<Console name="Console" target="SYSTEM_OUT" follow="true">
+			<PatternLayout
+				pattern="%date{yyyy-MM-dd HH:mm:ss.SSS} %level [%thread][%file:%line] - %msg%n" />
+		</Console>
+
+		<RollingRandomAccessFile name="systemLogAppender"
+			fileName="${LOG_PATH}/cube.risk.service.log"
+			filePattern="${LOG_PATH}/${date:yyyy-MM}/uct.system-%d{MM-dd-yyyy}-%i.log.gz">
+			<PatternLayout>
+				<Pattern>%d %p [%t] %m%n</Pattern>
+			</PatternLayout>
+			<Policies>
+				<TimeBasedTriggeringPolicy />
+				<SizeBasedTriggeringPolicy size="100 MB" />
+			</Policies>
+			<DefaultRolloverStrategy max="10" />
+		</RollingRandomAccessFile>
+		
+		<!-- Dubbox RPC 日志文件-->
+		<RollingRandomAccessFile name="rpcLogAppender"
+			fileName="${LOG_PATH}/uct.dubbo.rpc.message.log"
+			filePattern="${LOG_PATH}/${date:yyyy-MM}/uct.dubbo.rpc.message-%d{MM-dd-yyyy}-%i.log.gz">
+			<PatternLayout>
+				<Pattern>%d - [%MDC{msgType}][%MDC{seq}]\nServiceMethod:%MDC{serviceName}\nRemoteAddress:%MDC{remote}\nLocalAddress:%MDC{local}\n%m%n\n</Pattern>
+			</PatternLayout>
+			<Policies>
+				<TimeBasedTriggeringPolicy />
+				<SizeBasedTriggeringPolicy size="100 MB" />
+			</Policies>
+			<DefaultRolloverStrategy max="10" />
+		</RollingRandomAccessFile>
+
+	</Appenders>
+	<Loggers>
+	    <logger name="xstep.dubbo.service.logger" level="DEBUG" additivity="false">
+			<AppenderRef ref="rpcLogAppender" />
+		</logger>
+		
+		<Root level="Debug">
+			<AppenderRef ref="systemLogAppender" />
+			<AppenderRef ref="Console" />
+		</Root>
+	</Loggers>
+</Configuration>

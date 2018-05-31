@@ -1,0 +1,270 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.huatai.cube.rms.modules.mktquotation.dao.LivePriceModelMapper" >
+  <resultMap id="BaseResultMap" type="com.huatai.cube.rms.modules.mktquotation.model.LivePriceModel" >
+    <id column="ID" property="id" jdbcType="INTEGER" />
+    <result column="NowDate" property="nowdate" jdbcType="DATE" />
+    <result column="Underlying" property="underlying" jdbcType="VARCHAR" />
+    <result column="Currency" property="currency" jdbcType="VARCHAR" />
+    <result column="ExchangeCode" property="exchangecode" jdbcType="VARCHAR" />
+    <result column="StopFlag" property="stopflag" jdbcType="BIT" />
+    <result column="Last" property="last" jdbcType="DECIMAL" />
+    <result column="Close" property="close" jdbcType="DECIMAL" />
+    <result column="Open" property="open" jdbcType="DECIMAL" />
+    <result column="High" property="high" jdbcType="DECIMAL" />
+    <result column="Low" property="low" jdbcType="DECIMAL" />
+    <result column="SettlePrice" property="settleprice" jdbcType="DECIMAL" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Example_Clause_WithoutWhere" >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+  </sql>
+  <sql id="Base_Column_List" >
+    ID, NowDate, Underlying, Currency, ExchangeCode, StopFlag, Last, Close, Open, High, 
+    Low, SettlePrice
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.huatai.cube.rms.modules.mktquotation.model.LivePriceModelExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'false' as QUERYID,
+    <include refid="Base_Column_List" />
+    from liveprice
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from liveprice
+    where ID = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="selectRandomByExample" resultMap="BaseResultMap" parameterType="com.huatai.cube.rms.modules.mktquotation.model.LivePriceModelExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'false' as QUERYID,
+    <include refid="Base_Column_List" />
+    from liveprice
+    WHERE ID >= ((SELECT MAX(ID) FROM liveprice)-(SELECT MIN(ID) FROM liveprice)) * RAND() + (SELECT MIN(ID) FROM liveprice)
+    <if test="_parameter != null" >
+      AND <include refid="Example_Clause_WithoutWhere" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from liveprice
+    where ID = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.huatai.cube.rms.modules.mktquotation.model.LivePriceModel" >
+    insert into liveprice (ID, NowDate, Underlying, 
+      Currency, ExchangeCode, StopFlag, 
+      Last, Close, Open, 
+      High, Low, SettlePrice
+      )
+    values (#{id,jdbcType=INTEGER}, #{nowdate,jdbcType=DATE}, #{underlying,jdbcType=VARCHAR}, 
+      #{currency,jdbcType=VARCHAR}, #{exchangecode,jdbcType=VARCHAR}, #{stopflag,jdbcType=BIT}, 
+      #{last,jdbcType=DECIMAL}, #{close,jdbcType=DECIMAL}, #{open,jdbcType=DECIMAL}, 
+      #{high,jdbcType=DECIMAL}, #{low,jdbcType=DECIMAL}, #{settleprice,jdbcType=DECIMAL}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.huatai.cube.rms.modules.mktquotation.model.LivePriceModel" >
+    insert into liveprice
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="nowdate != null" >
+        NowDate,
+      </if>
+      <if test="underlying != null" >
+        Underlying,
+      </if>
+      <if test="currency != null" >
+        Currency,
+      </if>
+      <if test="exchangecode != null" >
+        ExchangeCode,
+      </if>
+      <if test="stopflag != null" >
+        StopFlag,
+      </if>
+      <if test="last != null" >
+        Last,
+      </if>
+      <if test="close != null" >
+        Close,
+      </if>
+      <if test="open != null" >
+        Open,
+      </if>
+      <if test="high != null" >
+        High,
+      </if>
+      <if test="low != null" >
+        Low,
+      </if>
+      <if test="settleprice != null" >
+        SettlePrice,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="nowdate != null" >
+        #{nowdate,jdbcType=DATE},
+      </if>
+      <if test="underlying != null" >
+        #{underlying,jdbcType=VARCHAR},
+      </if>
+      <if test="currency != null" >
+        #{currency,jdbcType=VARCHAR},
+      </if>
+      <if test="exchangecode != null" >
+        #{exchangecode,jdbcType=VARCHAR},
+      </if>
+      <if test="stopflag != null" >
+        #{stopflag,jdbcType=BIT},
+      </if>
+      <if test="last != null" >
+        #{last,jdbcType=DECIMAL},
+      </if>
+      <if test="close != null" >
+        #{close,jdbcType=DECIMAL},
+      </if>
+      <if test="open != null" >
+        #{open,jdbcType=DECIMAL},
+      </if>
+      <if test="high != null" >
+        #{high,jdbcType=DECIMAL},
+      </if>
+      <if test="low != null" >
+        #{low,jdbcType=DECIMAL},
+      </if>
+      <if test="settleprice != null" >
+        #{settleprice,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.huatai.cube.rms.modules.mktquotation.model.LivePriceModelExample" resultType="java.lang.Integer" >
+    select count(*) from liveprice
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByPrimaryKeySelective" parameterType="com.huatai.cube.rms.modules.mktquotation.model.LivePriceModel" >
+    update liveprice
+    <set >
+      <if test="nowdate != null" >
+        NowDate = #{nowdate,jdbcType=DATE},
+      </if>
+      <if test="underlying != null" >
+        Underlying = #{underlying,jdbcType=VARCHAR},
+      </if>
+      <if test="currency != null" >
+        Currency = #{currency,jdbcType=VARCHAR},
+      </if>
+      <if test="exchangecode != null" >
+        ExchangeCode = #{exchangecode,jdbcType=VARCHAR},
+      </if>
+      <if test="stopflag != null" >
+        StopFlag = #{stopflag,jdbcType=BIT},
+      </if>
+      <if test="last != null" >
+        Last = #{last,jdbcType=DECIMAL},
+      </if>
+      <if test="close != null" >
+        Close = #{close,jdbcType=DECIMAL},
+      </if>
+      <if test="open != null" >
+        Open = #{open,jdbcType=DECIMAL},
+      </if>
+      <if test="high != null" >
+        High = #{high,jdbcType=DECIMAL},
+      </if>
+      <if test="low != null" >
+        Low = #{low,jdbcType=DECIMAL},
+      </if>
+      <if test="settleprice != null" >
+        SettlePrice = #{settleprice,jdbcType=DECIMAL},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.huatai.cube.rms.modules.mktquotation.model.LivePriceModel" >
+    update liveprice
+    set NowDate = #{nowdate,jdbcType=DATE},
+      Underlying = #{underlying,jdbcType=VARCHAR},
+      Currency = #{currency,jdbcType=VARCHAR},
+      ExchangeCode = #{exchangecode,jdbcType=VARCHAR},
+      StopFlag = #{stopflag,jdbcType=BIT},
+      Last = #{last,jdbcType=DECIMAL},
+      Close = #{close,jdbcType=DECIMAL},
+      Open = #{open,jdbcType=DECIMAL},
+      High = #{high,jdbcType=DECIMAL},
+      Low = #{low,jdbcType=DECIMAL},
+      SettlePrice = #{settleprice,jdbcType=DECIMAL}
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

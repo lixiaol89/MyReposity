@@ -1,0 +1,465 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.huatai.cube.rms.modules.client.dao.ClientPricingModelMapper" >
+  <resultMap id="BaseResultMap" type="com.huatai.cube.rms.modules.client.model.ClientPricingModel" >
+    <id column="ID" property="id" jdbcType="INTEGER" />
+    <result column="ClientId" property="clientid" jdbcType="VARCHAR" />
+    <result column="TemplateType" property="templatetype" jdbcType="VARCHAR" />
+    <result column="LongShort" property="longshort" jdbcType="INTEGER" />
+    <result column="Quota" property="quota" jdbcType="DECIMAL" />
+    <result column="SettleCcy" property="settleccy" jdbcType="VARCHAR" />
+    <result column="InitalMargin" property="initalmargin" jdbcType="DECIMAL" />
+    <result column="MarginWarningLevel" property="marginwarninglevel" jdbcType="DECIMAL" />
+    <result column="MarginCallLevel" property="margincalllevel" jdbcType="DECIMAL" />
+    <result column="LiquiditionLevel" property="liquiditionlevel" jdbcType="DECIMAL" />
+    <result column="MarginNet" property="marginnet" jdbcType="INTEGER" />
+    <result column="Leverage" property="leverage" jdbcType="DECIMAL" />
+    <result column="FundingRate" property="fundingrate" jdbcType="DECIMAL" />
+    <result column="FundingCcy" property="fundingccy" jdbcType="VARCHAR" />
+    <result column="Commission" property="commission" jdbcType="DECIMAL" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.huatai.cube.rms.modules.client.model.ClientPricingModelWithBLOBs" extends="BaseResultMap" >
+    <result column="SalesId" property="salesid" jdbcType="LONGVARCHAR" />
+    <result column="Edge" property="edge" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    ID, ClientId, TemplateType, LongShort, Quota, SettleCcy, InitalMargin, MarginWarningLevel, 
+    MarginCallLevel, LiquiditionLevel, MarginNet, Leverage, FundingRate, FundingCcy, 
+    Commission
+  </sql>
+  <sql id="Blob_Column_List" >
+    SalesId, Edge
+  </sql>
+  <select id="selectByExampleWithBLOBs" resultMap="ResultMapWithBLOBs" parameterType="com.huatai.cube.rms.modules.client.model.ClientPricingModelExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'false' as QUERYID,
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from clientpricing
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.huatai.cube.rms.modules.client.model.ClientPricingModelExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'false' as QUERYID,
+    <include refid="Base_Column_List" />
+    from clientpricing
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from clientpricing
+    where ID = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from clientpricing
+    where ID = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.huatai.cube.rms.modules.client.model.ClientPricingModelExample" >
+    delete from clientpricing
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.huatai.cube.rms.modules.client.model.ClientPricingModelWithBLOBs" >
+    insert into clientpricing (ID, ClientId, TemplateType, 
+      LongShort, Quota, SettleCcy, 
+      InitalMargin, MarginWarningLevel, MarginCallLevel, 
+      LiquiditionLevel, MarginNet, Leverage, 
+      FundingRate, FundingCcy, Commission, 
+      SalesId, Edge)
+    values (#{id,jdbcType=INTEGER}, #{clientid,jdbcType=VARCHAR}, #{templatetype,jdbcType=VARCHAR}, 
+      #{longshort,jdbcType=INTEGER}, #{quota,jdbcType=DECIMAL}, #{settleccy,jdbcType=VARCHAR}, 
+      #{initalmargin,jdbcType=DECIMAL}, #{marginwarninglevel,jdbcType=DECIMAL}, #{margincalllevel,jdbcType=DECIMAL}, 
+      #{liquiditionlevel,jdbcType=DECIMAL}, #{marginnet,jdbcType=INTEGER}, #{leverage,jdbcType=DECIMAL}, 
+      #{fundingrate,jdbcType=DECIMAL}, #{fundingccy,jdbcType=VARCHAR}, #{commission,jdbcType=DECIMAL}, 
+      #{salesid,jdbcType=LONGVARCHAR}, #{edge,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.huatai.cube.rms.modules.client.model.ClientPricingModelWithBLOBs" >
+    insert into clientpricing
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="clientid != null" >
+        ClientId,
+      </if>
+      <if test="templatetype != null" >
+        TemplateType,
+      </if>
+      <if test="longshort != null" >
+        LongShort,
+      </if>
+      <if test="quota != null" >
+        Quota,
+      </if>
+      <if test="settleccy != null" >
+        SettleCcy,
+      </if>
+      <if test="initalmargin != null" >
+        InitalMargin,
+      </if>
+      <if test="marginwarninglevel != null" >
+        MarginWarningLevel,
+      </if>
+      <if test="margincalllevel != null" >
+        MarginCallLevel,
+      </if>
+      <if test="liquiditionlevel != null" >
+        LiquiditionLevel,
+      </if>
+      <if test="marginnet != null" >
+        MarginNet,
+      </if>
+      <if test="leverage != null" >
+        Leverage,
+      </if>
+      <if test="fundingrate != null" >
+        FundingRate,
+      </if>
+      <if test="fundingccy != null" >
+        FundingCcy,
+      </if>
+      <if test="commission != null" >
+        Commission,
+      </if>
+      <if test="salesid != null" >
+        SalesId,
+      </if>
+      <if test="edge != null" >
+        Edge,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="clientid != null" >
+        #{clientid,jdbcType=VARCHAR},
+      </if>
+      <if test="templatetype != null" >
+        #{templatetype,jdbcType=VARCHAR},
+      </if>
+      <if test="longshort != null" >
+        #{longshort,jdbcType=INTEGER},
+      </if>
+      <if test="quota != null" >
+        #{quota,jdbcType=DECIMAL},
+      </if>
+      <if test="settleccy != null" >
+        #{settleccy,jdbcType=VARCHAR},
+      </if>
+      <if test="initalmargin != null" >
+        #{initalmargin,jdbcType=DECIMAL},
+      </if>
+      <if test="marginwarninglevel != null" >
+        #{marginwarninglevel,jdbcType=DECIMAL},
+      </if>
+      <if test="margincalllevel != null" >
+        #{margincalllevel,jdbcType=DECIMAL},
+      </if>
+      <if test="liquiditionlevel != null" >
+        #{liquiditionlevel,jdbcType=DECIMAL},
+      </if>
+      <if test="marginnet != null" >
+        #{marginnet,jdbcType=INTEGER},
+      </if>
+      <if test="leverage != null" >
+        #{leverage,jdbcType=DECIMAL},
+      </if>
+      <if test="fundingrate != null" >
+        #{fundingrate,jdbcType=DECIMAL},
+      </if>
+      <if test="fundingccy != null" >
+        #{fundingccy,jdbcType=VARCHAR},
+      </if>
+      <if test="commission != null" >
+        #{commission,jdbcType=DECIMAL},
+      </if>
+      <if test="salesid != null" >
+        #{salesid,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="edge != null" >
+        #{edge,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.huatai.cube.rms.modules.client.model.ClientPricingModelExample" resultType="java.lang.Integer" >
+    select count(*) from clientpricing
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update clientpricing
+    <set >
+      <if test="record.id != null" >
+        ID = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.clientid != null" >
+        ClientId = #{record.clientid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.templatetype != null" >
+        TemplateType = #{record.templatetype,jdbcType=VARCHAR},
+      </if>
+      <if test="record.longshort != null" >
+        LongShort = #{record.longshort,jdbcType=INTEGER},
+      </if>
+      <if test="record.quota != null" >
+        Quota = #{record.quota,jdbcType=DECIMAL},
+      </if>
+      <if test="record.settleccy != null" >
+        SettleCcy = #{record.settleccy,jdbcType=VARCHAR},
+      </if>
+      <if test="record.initalmargin != null" >
+        InitalMargin = #{record.initalmargin,jdbcType=DECIMAL},
+      </if>
+      <if test="record.marginwarninglevel != null" >
+        MarginWarningLevel = #{record.marginwarninglevel,jdbcType=DECIMAL},
+      </if>
+      <if test="record.margincalllevel != null" >
+        MarginCallLevel = #{record.margincalllevel,jdbcType=DECIMAL},
+      </if>
+      <if test="record.liquiditionlevel != null" >
+        LiquiditionLevel = #{record.liquiditionlevel,jdbcType=DECIMAL},
+      </if>
+      <if test="record.marginnet != null" >
+        MarginNet = #{record.marginnet,jdbcType=INTEGER},
+      </if>
+      <if test="record.leverage != null" >
+        Leverage = #{record.leverage,jdbcType=DECIMAL},
+      </if>
+      <if test="record.fundingrate != null" >
+        FundingRate = #{record.fundingrate,jdbcType=DECIMAL},
+      </if>
+      <if test="record.fundingccy != null" >
+        FundingCcy = #{record.fundingccy,jdbcType=VARCHAR},
+      </if>
+      <if test="record.commission != null" >
+        Commission = #{record.commission,jdbcType=DECIMAL},
+      </if>
+      <if test="record.salesid != null" >
+        SalesId = #{record.salesid,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.edge != null" >
+        Edge = #{record.edge,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map" >
+    update clientpricing
+    set ID = #{record.id,jdbcType=INTEGER},
+      ClientId = #{record.clientid,jdbcType=VARCHAR},
+      TemplateType = #{record.templatetype,jdbcType=VARCHAR},
+      LongShort = #{record.longshort,jdbcType=INTEGER},
+      Quota = #{record.quota,jdbcType=DECIMAL},
+      SettleCcy = #{record.settleccy,jdbcType=VARCHAR},
+      InitalMargin = #{record.initalmargin,jdbcType=DECIMAL},
+      MarginWarningLevel = #{record.marginwarninglevel,jdbcType=DECIMAL},
+      MarginCallLevel = #{record.margincalllevel,jdbcType=DECIMAL},
+      LiquiditionLevel = #{record.liquiditionlevel,jdbcType=DECIMAL},
+      MarginNet = #{record.marginnet,jdbcType=INTEGER},
+      Leverage = #{record.leverage,jdbcType=DECIMAL},
+      FundingRate = #{record.fundingrate,jdbcType=DECIMAL},
+      FundingCcy = #{record.fundingccy,jdbcType=VARCHAR},
+      Commission = #{record.commission,jdbcType=DECIMAL},
+      SalesId = #{record.salesid,jdbcType=LONGVARCHAR},
+      Edge = #{record.edge,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update clientpricing
+    set ID = #{record.id,jdbcType=INTEGER},
+      ClientId = #{record.clientid,jdbcType=VARCHAR},
+      TemplateType = #{record.templatetype,jdbcType=VARCHAR},
+      LongShort = #{record.longshort,jdbcType=INTEGER},
+      Quota = #{record.quota,jdbcType=DECIMAL},
+      SettleCcy = #{record.settleccy,jdbcType=VARCHAR},
+      InitalMargin = #{record.initalmargin,jdbcType=DECIMAL},
+      MarginWarningLevel = #{record.marginwarninglevel,jdbcType=DECIMAL},
+      MarginCallLevel = #{record.margincalllevel,jdbcType=DECIMAL},
+      LiquiditionLevel = #{record.liquiditionlevel,jdbcType=DECIMAL},
+      MarginNet = #{record.marginnet,jdbcType=INTEGER},
+      Leverage = #{record.leverage,jdbcType=DECIMAL},
+      FundingRate = #{record.fundingrate,jdbcType=DECIMAL},
+      FundingCcy = #{record.fundingccy,jdbcType=VARCHAR},
+      Commission = #{record.commission,jdbcType=DECIMAL}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.huatai.cube.rms.modules.client.model.ClientPricingModelWithBLOBs" >
+    update clientpricing
+    <set >
+      <if test="clientid != null" >
+        ClientId = #{clientid,jdbcType=VARCHAR},
+      </if>
+      <if test="templatetype != null" >
+        TemplateType = #{templatetype,jdbcType=VARCHAR},
+      </if>
+      <if test="longshort != null" >
+        LongShort = #{longshort,jdbcType=INTEGER},
+      </if>
+      <if test="quota != null" >
+        Quota = #{quota,jdbcType=DECIMAL},
+      </if>
+      <if test="settleccy != null" >
+        SettleCcy = #{settleccy,jdbcType=VARCHAR},
+      </if>
+      <if test="initalmargin != null" >
+        InitalMargin = #{initalmargin,jdbcType=DECIMAL},
+      </if>
+      <if test="marginwarninglevel != null" >
+        MarginWarningLevel = #{marginwarninglevel,jdbcType=DECIMAL},
+      </if>
+      <if test="margincalllevel != null" >
+        MarginCallLevel = #{margincalllevel,jdbcType=DECIMAL},
+      </if>
+      <if test="liquiditionlevel != null" >
+        LiquiditionLevel = #{liquiditionlevel,jdbcType=DECIMAL},
+      </if>
+      <if test="marginnet != null" >
+        MarginNet = #{marginnet,jdbcType=INTEGER},
+      </if>
+      <if test="leverage != null" >
+        Leverage = #{leverage,jdbcType=DECIMAL},
+      </if>
+      <if test="fundingrate != null" >
+        FundingRate = #{fundingrate,jdbcType=DECIMAL},
+      </if>
+      <if test="fundingccy != null" >
+        FundingCcy = #{fundingccy,jdbcType=VARCHAR},
+      </if>
+      <if test="commission != null" >
+        Commission = #{commission,jdbcType=DECIMAL},
+      </if>
+      <if test="salesid != null" >
+        SalesId = #{salesid,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="edge != null" >
+        Edge = #{edge,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.huatai.cube.rms.modules.client.model.ClientPricingModelWithBLOBs" >
+    update clientpricing
+    set ClientId = #{clientid,jdbcType=VARCHAR},
+      TemplateType = #{templatetype,jdbcType=VARCHAR},
+      LongShort = #{longshort,jdbcType=INTEGER},
+      Quota = #{quota,jdbcType=DECIMAL},
+      SettleCcy = #{settleccy,jdbcType=VARCHAR},
+      InitalMargin = #{initalmargin,jdbcType=DECIMAL},
+      MarginWarningLevel = #{marginwarninglevel,jdbcType=DECIMAL},
+      MarginCallLevel = #{margincalllevel,jdbcType=DECIMAL},
+      LiquiditionLevel = #{liquiditionlevel,jdbcType=DECIMAL},
+      MarginNet = #{marginnet,jdbcType=INTEGER},
+      Leverage = #{leverage,jdbcType=DECIMAL},
+      FundingRate = #{fundingrate,jdbcType=DECIMAL},
+      FundingCcy = #{fundingccy,jdbcType=VARCHAR},
+      Commission = #{commission,jdbcType=DECIMAL},
+      SalesId = #{salesid,jdbcType=LONGVARCHAR},
+      Edge = #{edge,jdbcType=LONGVARCHAR}
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.huatai.cube.rms.modules.client.model.ClientPricingModel" >
+    update clientpricing
+    set ClientId = #{clientid,jdbcType=VARCHAR},
+      TemplateType = #{templatetype,jdbcType=VARCHAR},
+      LongShort = #{longshort,jdbcType=INTEGER},
+      Quota = #{quota,jdbcType=DECIMAL},
+      SettleCcy = #{settleccy,jdbcType=VARCHAR},
+      InitalMargin = #{initalmargin,jdbcType=DECIMAL},
+      MarginWarningLevel = #{marginwarninglevel,jdbcType=DECIMAL},
+      MarginCallLevel = #{margincalllevel,jdbcType=DECIMAL},
+      LiquiditionLevel = #{liquiditionlevel,jdbcType=DECIMAL},
+      MarginNet = #{marginnet,jdbcType=INTEGER},
+      Leverage = #{leverage,jdbcType=DECIMAL},
+      FundingRate = #{fundingrate,jdbcType=DECIMAL},
+      FundingCcy = #{fundingccy,jdbcType=VARCHAR},
+      Commission = #{commission,jdbcType=DECIMAL}
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

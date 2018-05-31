@@ -1,0 +1,592 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.huatai.cube.rms.modules.client.dao.ClientModelMapper" >
+  <resultMap id="BaseResultMap" type="com.huatai.cube.rms.modules.client.model.ClientModel" >
+    <id column="ID" property="id" jdbcType="INTEGER" />
+    <result column="ClientID" property="clientid" jdbcType="VARCHAR" />
+    <result column="ClientName" property="clientname" jdbcType="VARCHAR" />
+    <result column="OrganCode" property="organcode" jdbcType="VARCHAR" />
+    <result column="OrganName" property="organname" jdbcType="VARCHAR" />
+    <result column="InvestorAccount" property="investoraccount" jdbcType="VARCHAR" />
+    <result column="InvestorName" property="investorname" jdbcType="VARCHAR" />
+    <result column="ProductAccount" property="productaccount" jdbcType="VARCHAR" />
+    <result column="ProductName" property="productname" jdbcType="VARCHAR" />
+    <result column="TradingAccount" property="tradingaccount" jdbcType="VARCHAR" />
+    <result column="TradingAccountName" property="tradingaccountname" jdbcType="VARCHAR" />
+    <result column="ExtAssetAccount" property="extassetaccount" jdbcType="VARCHAR" />
+    <result column="OverAssetAccountType" property="overassetaccounttype" jdbcType="INTEGER" />
+    <result column="Email" property="email" jdbcType="VARCHAR" />
+    <result column="MarginMultiplier" property="marginmultiplier" jdbcType="DECIMAL" />
+    <result column="MarginCallRatio" property="margincallratio" jdbcType="DECIMAL" />
+    <result column="MarginCcy" property="marginccy" jdbcType="VARCHAR" />
+    <result column="FundCost" property="fundcost" jdbcType="DECIMAL" />
+    <result column="InterestRate" property="interestrate" jdbcType="DECIMAL" />
+    <result column="Referee" property="referee" jdbcType="VARCHAR" />
+    <result column="SenderBankName" property="senderbankname" jdbcType="VARCHAR" />
+    <result column="SenderAccountNo" property="senderaccountno" jdbcType="VARCHAR" />
+    <result column="SenderName" property="sendername" jdbcType="VARCHAR" />
+    <result column="ReceiverBankName" property="receiverbankname" jdbcType="VARCHAR" />
+    <result column="ReceiverAccountNo" property="receiveraccountno" jdbcType="VARCHAR" />
+    <result column="ReceiverName" property="receivername" jdbcType="VARCHAR" />
+    <result column="CnapsBankCode" property="cnapsbankcode" jdbcType="VARCHAR" />
+    <result column="LastUpdateUser" property="lastupdateuser" jdbcType="VARCHAR" />
+    <result column="LastUpdateTime" property="lastupdatetime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    ID, ClientID, ClientName, OrganCode, OrganName, InvestorAccount, InvestorName, ProductAccount, 
+    ProductName, TradingAccount, TradingAccountName, ExtAssetAccount, OverAssetAccountType, 
+    Email, MarginMultiplier, MarginCallRatio, MarginCcy, FundCost, InterestRate, Referee, 
+    SenderBankName, SenderAccountNo, SenderName, ReceiverBankName, ReceiverAccountNo, 
+    ReceiverName, CnapsBankCode, LastUpdateUser, LastUpdateTime
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.huatai.cube.rms.modules.client.model.ClientModelExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'false' as QUERYID,
+    <include refid="Base_Column_List" />
+    from client
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from client
+    where ID = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from client
+    where ID = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.huatai.cube.rms.modules.client.model.ClientModelExample" >
+    delete from client
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.huatai.cube.rms.modules.client.model.ClientModel" >
+    insert into client (ID, ClientID, ClientName, 
+      OrganCode, OrganName, InvestorAccount, 
+      InvestorName, ProductAccount, ProductName, 
+      TradingAccount, TradingAccountName, ExtAssetAccount, 
+      OverAssetAccountType, Email, MarginMultiplier, 
+      MarginCallRatio, MarginCcy, FundCost, 
+      InterestRate, Referee, SenderBankName, 
+      SenderAccountNo, SenderName, ReceiverBankName, 
+      ReceiverAccountNo, ReceiverName, CnapsBankCode, 
+      LastUpdateUser, LastUpdateTime)
+    values (#{id,jdbcType=INTEGER}, #{clientid,jdbcType=VARCHAR}, #{clientname,jdbcType=VARCHAR}, 
+      #{organcode,jdbcType=VARCHAR}, #{organname,jdbcType=VARCHAR}, #{investoraccount,jdbcType=VARCHAR}, 
+      #{investorname,jdbcType=VARCHAR}, #{productaccount,jdbcType=VARCHAR}, #{productname,jdbcType=VARCHAR}, 
+      #{tradingaccount,jdbcType=VARCHAR}, #{tradingaccountname,jdbcType=VARCHAR}, #{extassetaccount,jdbcType=VARCHAR}, 
+      #{overassetaccounttype,jdbcType=INTEGER}, #{email,jdbcType=VARCHAR}, #{marginmultiplier,jdbcType=DECIMAL}, 
+      #{margincallratio,jdbcType=DECIMAL}, #{marginccy,jdbcType=VARCHAR}, #{fundcost,jdbcType=DECIMAL}, 
+      #{interestrate,jdbcType=DECIMAL}, #{referee,jdbcType=VARCHAR}, #{senderbankname,jdbcType=VARCHAR}, 
+      #{senderaccountno,jdbcType=VARCHAR}, #{sendername,jdbcType=VARCHAR}, #{receiverbankname,jdbcType=VARCHAR}, 
+      #{receiveraccountno,jdbcType=VARCHAR}, #{receivername,jdbcType=VARCHAR}, #{cnapsbankcode,jdbcType=VARCHAR}, 
+      #{lastupdateuser,jdbcType=VARCHAR}, #{lastupdatetime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.huatai.cube.rms.modules.client.model.ClientModel" >
+    insert into client
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="clientid != null" >
+        ClientID,
+      </if>
+      <if test="clientname != null" >
+        ClientName,
+      </if>
+      <if test="organcode != null" >
+        OrganCode,
+      </if>
+      <if test="organname != null" >
+        OrganName,
+      </if>
+      <if test="investoraccount != null" >
+        InvestorAccount,
+      </if>
+      <if test="investorname != null" >
+        InvestorName,
+      </if>
+      <if test="productaccount != null" >
+        ProductAccount,
+      </if>
+      <if test="productname != null" >
+        ProductName,
+      </if>
+      <if test="tradingaccount != null" >
+        TradingAccount,
+      </if>
+      <if test="tradingaccountname != null" >
+        TradingAccountName,
+      </if>
+      <if test="extassetaccount != null" >
+        ExtAssetAccount,
+      </if>
+      <if test="overassetaccounttype != null" >
+        OverAssetAccountType,
+      </if>
+      <if test="email != null" >
+        Email,
+      </if>
+      <if test="marginmultiplier != null" >
+        MarginMultiplier,
+      </if>
+      <if test="margincallratio != null" >
+        MarginCallRatio,
+      </if>
+      <if test="marginccy != null" >
+        MarginCcy,
+      </if>
+      <if test="fundcost != null" >
+        FundCost,
+      </if>
+      <if test="interestrate != null" >
+        InterestRate,
+      </if>
+      <if test="referee != null" >
+        Referee,
+      </if>
+      <if test="senderbankname != null" >
+        SenderBankName,
+      </if>
+      <if test="senderaccountno != null" >
+        SenderAccountNo,
+      </if>
+      <if test="sendername != null" >
+        SenderName,
+      </if>
+      <if test="receiverbankname != null" >
+        ReceiverBankName,
+      </if>
+      <if test="receiveraccountno != null" >
+        ReceiverAccountNo,
+      </if>
+      <if test="receivername != null" >
+        ReceiverName,
+      </if>
+      <if test="cnapsbankcode != null" >
+        CnapsBankCode,
+      </if>
+      <if test="lastupdateuser != null" >
+        LastUpdateUser,
+      </if>
+      <if test="lastupdatetime != null" >
+        LastUpdateTime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="clientid != null" >
+        #{clientid,jdbcType=VARCHAR},
+      </if>
+      <if test="clientname != null" >
+        #{clientname,jdbcType=VARCHAR},
+      </if>
+      <if test="organcode != null" >
+        #{organcode,jdbcType=VARCHAR},
+      </if>
+      <if test="organname != null" >
+        #{organname,jdbcType=VARCHAR},
+      </if>
+      <if test="investoraccount != null" >
+        #{investoraccount,jdbcType=VARCHAR},
+      </if>
+      <if test="investorname != null" >
+        #{investorname,jdbcType=VARCHAR},
+      </if>
+      <if test="productaccount != null" >
+        #{productaccount,jdbcType=VARCHAR},
+      </if>
+      <if test="productname != null" >
+        #{productname,jdbcType=VARCHAR},
+      </if>
+      <if test="tradingaccount != null" >
+        #{tradingaccount,jdbcType=VARCHAR},
+      </if>
+      <if test="tradingaccountname != null" >
+        #{tradingaccountname,jdbcType=VARCHAR},
+      </if>
+      <if test="extassetaccount != null" >
+        #{extassetaccount,jdbcType=VARCHAR},
+      </if>
+      <if test="overassetaccounttype != null" >
+        #{overassetaccounttype,jdbcType=INTEGER},
+      </if>
+      <if test="email != null" >
+        #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="marginmultiplier != null" >
+        #{marginmultiplier,jdbcType=DECIMAL},
+      </if>
+      <if test="margincallratio != null" >
+        #{margincallratio,jdbcType=DECIMAL},
+      </if>
+      <if test="marginccy != null" >
+        #{marginccy,jdbcType=VARCHAR},
+      </if>
+      <if test="fundcost != null" >
+        #{fundcost,jdbcType=DECIMAL},
+      </if>
+      <if test="interestrate != null" >
+        #{interestrate,jdbcType=DECIMAL},
+      </if>
+      <if test="referee != null" >
+        #{referee,jdbcType=VARCHAR},
+      </if>
+      <if test="senderbankname != null" >
+        #{senderbankname,jdbcType=VARCHAR},
+      </if>
+      <if test="senderaccountno != null" >
+        #{senderaccountno,jdbcType=VARCHAR},
+      </if>
+      <if test="sendername != null" >
+        #{sendername,jdbcType=VARCHAR},
+      </if>
+      <if test="receiverbankname != null" >
+        #{receiverbankname,jdbcType=VARCHAR},
+      </if>
+      <if test="receiveraccountno != null" >
+        #{receiveraccountno,jdbcType=VARCHAR},
+      </if>
+      <if test="receivername != null" >
+        #{receivername,jdbcType=VARCHAR},
+      </if>
+      <if test="cnapsbankcode != null" >
+        #{cnapsbankcode,jdbcType=VARCHAR},
+      </if>
+      <if test="lastupdateuser != null" >
+        #{lastupdateuser,jdbcType=VARCHAR},
+      </if>
+      <if test="lastupdatetime != null" >
+        #{lastupdatetime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.huatai.cube.rms.modules.client.model.ClientModelExample" resultType="java.lang.Integer" >
+    select count(*) from client
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update client
+    <set >
+      <if test="record.id != null" >
+        ID = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.clientid != null" >
+        ClientID = #{record.clientid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.clientname != null" >
+        ClientName = #{record.clientname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.organcode != null" >
+        OrganCode = #{record.organcode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.organname != null" >
+        OrganName = #{record.organname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.investoraccount != null" >
+        InvestorAccount = #{record.investoraccount,jdbcType=VARCHAR},
+      </if>
+      <if test="record.investorname != null" >
+        InvestorName = #{record.investorname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.productaccount != null" >
+        ProductAccount = #{record.productaccount,jdbcType=VARCHAR},
+      </if>
+      <if test="record.productname != null" >
+        ProductName = #{record.productname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.tradingaccount != null" >
+        TradingAccount = #{record.tradingaccount,jdbcType=VARCHAR},
+      </if>
+      <if test="record.tradingaccountname != null" >
+        TradingAccountName = #{record.tradingaccountname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.extassetaccount != null" >
+        ExtAssetAccount = #{record.extassetaccount,jdbcType=VARCHAR},
+      </if>
+      <if test="record.overassetaccounttype != null" >
+        OverAssetAccountType = #{record.overassetaccounttype,jdbcType=INTEGER},
+      </if>
+      <if test="record.email != null" >
+        Email = #{record.email,jdbcType=VARCHAR},
+      </if>
+      <if test="record.marginmultiplier != null" >
+        MarginMultiplier = #{record.marginmultiplier,jdbcType=DECIMAL},
+      </if>
+      <if test="record.margincallratio != null" >
+        MarginCallRatio = #{record.margincallratio,jdbcType=DECIMAL},
+      </if>
+      <if test="record.marginccy != null" >
+        MarginCcy = #{record.marginccy,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fundcost != null" >
+        FundCost = #{record.fundcost,jdbcType=DECIMAL},
+      </if>
+      <if test="record.interestrate != null" >
+        InterestRate = #{record.interestrate,jdbcType=DECIMAL},
+      </if>
+      <if test="record.referee != null" >
+        Referee = #{record.referee,jdbcType=VARCHAR},
+      </if>
+      <if test="record.senderbankname != null" >
+        SenderBankName = #{record.senderbankname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.senderaccountno != null" >
+        SenderAccountNo = #{record.senderaccountno,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sendername != null" >
+        SenderName = #{record.sendername,jdbcType=VARCHAR},
+      </if>
+      <if test="record.receiverbankname != null" >
+        ReceiverBankName = #{record.receiverbankname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.receiveraccountno != null" >
+        ReceiverAccountNo = #{record.receiveraccountno,jdbcType=VARCHAR},
+      </if>
+      <if test="record.receivername != null" >
+        ReceiverName = #{record.receivername,jdbcType=VARCHAR},
+      </if>
+      <if test="record.cnapsbankcode != null" >
+        CnapsBankCode = #{record.cnapsbankcode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.lastupdateuser != null" >
+        LastUpdateUser = #{record.lastupdateuser,jdbcType=VARCHAR},
+      </if>
+      <if test="record.lastupdatetime != null" >
+        LastUpdateTime = #{record.lastupdatetime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update client
+    set ID = #{record.id,jdbcType=INTEGER},
+      ClientID = #{record.clientid,jdbcType=VARCHAR},
+      ClientName = #{record.clientname,jdbcType=VARCHAR},
+      OrganCode = #{record.organcode,jdbcType=VARCHAR},
+      OrganName = #{record.organname,jdbcType=VARCHAR},
+      InvestorAccount = #{record.investoraccount,jdbcType=VARCHAR},
+      InvestorName = #{record.investorname,jdbcType=VARCHAR},
+      ProductAccount = #{record.productaccount,jdbcType=VARCHAR},
+      ProductName = #{record.productname,jdbcType=VARCHAR},
+      TradingAccount = #{record.tradingaccount,jdbcType=VARCHAR},
+      TradingAccountName = #{record.tradingaccountname,jdbcType=VARCHAR},
+      ExtAssetAccount = #{record.extassetaccount,jdbcType=VARCHAR},
+      OverAssetAccountType = #{record.overassetaccounttype,jdbcType=INTEGER},
+      Email = #{record.email,jdbcType=VARCHAR},
+      MarginMultiplier = #{record.marginmultiplier,jdbcType=DECIMAL},
+      MarginCallRatio = #{record.margincallratio,jdbcType=DECIMAL},
+      MarginCcy = #{record.marginccy,jdbcType=VARCHAR},
+      FundCost = #{record.fundcost,jdbcType=DECIMAL},
+      InterestRate = #{record.interestrate,jdbcType=DECIMAL},
+      Referee = #{record.referee,jdbcType=VARCHAR},
+      SenderBankName = #{record.senderbankname,jdbcType=VARCHAR},
+      SenderAccountNo = #{record.senderaccountno,jdbcType=VARCHAR},
+      SenderName = #{record.sendername,jdbcType=VARCHAR},
+      ReceiverBankName = #{record.receiverbankname,jdbcType=VARCHAR},
+      ReceiverAccountNo = #{record.receiveraccountno,jdbcType=VARCHAR},
+      ReceiverName = #{record.receivername,jdbcType=VARCHAR},
+      CnapsBankCode = #{record.cnapsbankcode,jdbcType=VARCHAR},
+      LastUpdateUser = #{record.lastupdateuser,jdbcType=VARCHAR},
+      LastUpdateTime = #{record.lastupdatetime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.huatai.cube.rms.modules.client.model.ClientModel" >
+    update client
+    <set >
+      <if test="clientid != null" >
+        ClientID = #{clientid,jdbcType=VARCHAR},
+      </if>
+      <if test="clientname != null" >
+        ClientName = #{clientname,jdbcType=VARCHAR},
+      </if>
+      <if test="organcode != null" >
+        OrganCode = #{organcode,jdbcType=VARCHAR},
+      </if>
+      <if test="organname != null" >
+        OrganName = #{organname,jdbcType=VARCHAR},
+      </if>
+      <if test="investoraccount != null" >
+        InvestorAccount = #{investoraccount,jdbcType=VARCHAR},
+      </if>
+      <if test="investorname != null" >
+        InvestorName = #{investorname,jdbcType=VARCHAR},
+      </if>
+      <if test="productaccount != null" >
+        ProductAccount = #{productaccount,jdbcType=VARCHAR},
+      </if>
+      <if test="productname != null" >
+        ProductName = #{productname,jdbcType=VARCHAR},
+      </if>
+      <if test="tradingaccount != null" >
+        TradingAccount = #{tradingaccount,jdbcType=VARCHAR},
+      </if>
+      <if test="tradingaccountname != null" >
+        TradingAccountName = #{tradingaccountname,jdbcType=VARCHAR},
+      </if>
+      <if test="extassetaccount != null" >
+        ExtAssetAccount = #{extassetaccount,jdbcType=VARCHAR},
+      </if>
+      <if test="overassetaccounttype != null" >
+        OverAssetAccountType = #{overassetaccounttype,jdbcType=INTEGER},
+      </if>
+      <if test="email != null" >
+        Email = #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="marginmultiplier != null" >
+        MarginMultiplier = #{marginmultiplier,jdbcType=DECIMAL},
+      </if>
+      <if test="margincallratio != null" >
+        MarginCallRatio = #{margincallratio,jdbcType=DECIMAL},
+      </if>
+      <if test="marginccy != null" >
+        MarginCcy = #{marginccy,jdbcType=VARCHAR},
+      </if>
+      <if test="fundcost != null" >
+        FundCost = #{fundcost,jdbcType=DECIMAL},
+      </if>
+      <if test="interestrate != null" >
+        InterestRate = #{interestrate,jdbcType=DECIMAL},
+      </if>
+      <if test="referee != null" >
+        Referee = #{referee,jdbcType=VARCHAR},
+      </if>
+      <if test="senderbankname != null" >
+        SenderBankName = #{senderbankname,jdbcType=VARCHAR},
+      </if>
+      <if test="senderaccountno != null" >
+        SenderAccountNo = #{senderaccountno,jdbcType=VARCHAR},
+      </if>
+      <if test="sendername != null" >
+        SenderName = #{sendername,jdbcType=VARCHAR},
+      </if>
+      <if test="receiverbankname != null" >
+        ReceiverBankName = #{receiverbankname,jdbcType=VARCHAR},
+      </if>
+      <if test="receiveraccountno != null" >
+        ReceiverAccountNo = #{receiveraccountno,jdbcType=VARCHAR},
+      </if>
+      <if test="receivername != null" >
+        ReceiverName = #{receivername,jdbcType=VARCHAR},
+      </if>
+      <if test="cnapsbankcode != null" >
+        CnapsBankCode = #{cnapsbankcode,jdbcType=VARCHAR},
+      </if>
+      <if test="lastupdateuser != null" >
+        LastUpdateUser = #{lastupdateuser,jdbcType=VARCHAR},
+      </if>
+      <if test="lastupdatetime != null" >
+        LastUpdateTime = #{lastupdatetime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.huatai.cube.rms.modules.client.model.ClientModel" >
+    update client
+    set ClientID = #{clientid,jdbcType=VARCHAR},
+      ClientName = #{clientname,jdbcType=VARCHAR},
+      OrganCode = #{organcode,jdbcType=VARCHAR},
+      OrganName = #{organname,jdbcType=VARCHAR},
+      InvestorAccount = #{investoraccount,jdbcType=VARCHAR},
+      InvestorName = #{investorname,jdbcType=VARCHAR},
+      ProductAccount = #{productaccount,jdbcType=VARCHAR},
+      ProductName = #{productname,jdbcType=VARCHAR},
+      TradingAccount = #{tradingaccount,jdbcType=VARCHAR},
+      TradingAccountName = #{tradingaccountname,jdbcType=VARCHAR},
+      ExtAssetAccount = #{extassetaccount,jdbcType=VARCHAR},
+      OverAssetAccountType = #{overassetaccounttype,jdbcType=INTEGER},
+      Email = #{email,jdbcType=VARCHAR},
+      MarginMultiplier = #{marginmultiplier,jdbcType=DECIMAL},
+      MarginCallRatio = #{margincallratio,jdbcType=DECIMAL},
+      MarginCcy = #{marginccy,jdbcType=VARCHAR},
+      FundCost = #{fundcost,jdbcType=DECIMAL},
+      InterestRate = #{interestrate,jdbcType=DECIMAL},
+      Referee = #{referee,jdbcType=VARCHAR},
+      SenderBankName = #{senderbankname,jdbcType=VARCHAR},
+      SenderAccountNo = #{senderaccountno,jdbcType=VARCHAR},
+      SenderName = #{sendername,jdbcType=VARCHAR},
+      ReceiverBankName = #{receiverbankname,jdbcType=VARCHAR},
+      ReceiverAccountNo = #{receiveraccountno,jdbcType=VARCHAR},
+      ReceiverName = #{receivername,jdbcType=VARCHAR},
+      CnapsBankCode = #{cnapsbankcode,jdbcType=VARCHAR},
+      LastUpdateUser = #{lastupdateuser,jdbcType=VARCHAR},
+      LastUpdateTime = #{lastupdatetime,jdbcType=TIMESTAMP}
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
